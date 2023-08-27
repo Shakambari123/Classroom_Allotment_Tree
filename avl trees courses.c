@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-// An AVL tree node.....
+// An AVL tree node denoting one student
 typedef struct stu_avl_tree
 {
     char *name;
