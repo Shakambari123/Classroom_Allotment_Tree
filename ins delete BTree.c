@@ -44,6 +44,8 @@ else{
 
 Student *Initialize_student(char *str1, char *str2,int coursearr[5],avl_coursename *croot)
 {
+	//function in which we check whether the student has opted for more than one course in same slot. 
+	//If not, then we assign memory to the newstudent and initialize all the parameters with the given info
 	int slots[6]={0,0,0,0,0,0},i,flag=0;
     Student *newstudent = (Student *)malloc(sizeof(Student));
     newstudent->name = (char *)malloc(strlen(str1) + 1);
