@@ -602,6 +602,8 @@ Student* search(char *enrollno, BTreeN *root) {
 }
 
 struct Node *delete_student_from_courses(avl_coursename *croot,BTreeN *root,struct Node *root1,char *key){
+	//key is basically the enrollment number of student. Using this we first find the student info from the Btree,then find the slots of each courses which he has opted
+	//using the searchAfterCourseName function and then basically delete the him from all the courses.
 int i=0,flag,j;
 Student *get_student=search(key,root);
 printf("IN del_student_courses %s %s %d %d\n",get_student->name,get_student->enrollno,get_student->courses[0]);
@@ -626,14 +628,14 @@ return root1;
 }	
 
 
-struct Node *delete_course_regzero(struct Node *root1){
+struct Node *delete_course_regzero(struct Node *root1){//delete all those courses who have zero students registered
 if(root1!=NULL)
   {
 	if(root1->num_courses_zero_reg!=0)
 	{
-		LinkedList *ptr=root1->head,*prev=NULL;
-		while(ptr!=NULL)
-		  {
+	   LinkedList *ptr=root1->head,*prev=NULL;
+	   while(ptr!=NULL)
+	      {
 		   if(ptr->reg_students==0){
 		 	 if(prev==NULL){
 		 	 	root1->head=ptr->next;
@@ -642,12 +644,11 @@ if(root1!=NULL)
 			  	prev->next=ptr->next;
 			  }
 			  free(ptr);
-		   }
-		   else{
+		    }else{
 		   	prev=ptr;
-		   }
+	           }
 		   ptr=ptr->next;
-		}
+	    }
 	}
   delete_course_regzero(root1->left);
   delete_course_regzero(root1->right);	
@@ -1068,12 +1069,12 @@ case 1:
       coursarr[4]=course5;
       Student *k = Initialize_student(str1,str2,coursarr,croot);
        if(k!=NULL){
-      root = Insert_student(k, root);
+      root = Insert_student(k, root); //inserting the student data in the BTree 
       //printf("Entered successfully");
-      root1=Insert_student_in_courses(root1,k,croot);
+      root1=Insert_student_in_courses(root1,k,croot);//getting the student inserted in all the courses he has opted in that complex tree
       }
 	  else{
-	  	 	printf("Student has same slot courses");
+	  	printf("Student has same slot courses");
 	  } 
       traverse_student(root);
       preOrder(root1);
@@ -1087,9 +1088,9 @@ case 2:
       key=malloc(sizeof(char)*50);
       printf("Enter the key to delete: "); 
       scanf("%s", key); 
-      root1=delete_student_from_courses(croot,root,root1,key);
+      root1=delete_student_from_courses(croot,root,root1,key);//delete student from all the courses he has opted
        preOrder(root1);
-      delete_student(&root, key); 
+      delete_student(&root, key); //delete student from Btree
       traverse_student(root);
       break;
   }
@@ -1104,14 +1105,14 @@ case 2:
         scanf("%d",&coursenum);
      	printf("Enter the slot for given course: ");
      	scanf("%d",&inputslot);
-     	root1=insert(root1,coursenum,inputslot);
-        croot=insert_coursename(croot,coursenum,inputslot);
+     	root1=insert(root1,coursenum,inputslot); //inserts course in the slots tree(complex one) 
+        croot=insert_coursename(croot,coursenum,inputslot);//insert course in the avial tree which exclusively stores available courses info
         preOrder(root1);
 	    preOrder_coursename(croot);
 	   }
 	   else if(choice==2)
 	   {
-	   	 root1=delete_course_regzero(root1);
+	   	 root1=delete_course_regzero(root1);  
 	   	 root1=deleteNode(root1,7,0);
 	   	 preOrder(root1);
 	   } 
