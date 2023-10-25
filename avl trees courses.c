@@ -133,7 +133,7 @@ stu_avl *front(queue *q)
     return ret_val;
 }
 
-int empty(queue *q)
+int empty(queue *q)  /*checks whether queue is empty or not*/
 {
     int ret_val = 1;
     if (q->head != NULL)
@@ -189,7 +189,7 @@ int max(int a, int b)
 }
 
 /* Helper function that allocates a new node with the given key and
- NULL left and right pointers. */
+ NULL left and right pointers.Basically adding new slot number in tree */
 struct Node *newNode(int coursename, int slot)
 {
     struct Node *node = (struct Node *)malloc(sizeof(struct Node));
