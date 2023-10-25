@@ -469,7 +469,7 @@ classroom *insert_classroom(classroom *node, int numseats, int RNo)
 
 avl_coursename *insert_coursename(avl_coursename *node, int coursename, int slot)
 {
-    /* 1. Perform the normal BST rotation */
+    /* 1. Perform the normal BST rotation .*/
     if (node == NULL)
         return (newNode_coursename(coursename, slot));
 
@@ -522,7 +522,7 @@ avl_coursename *insert_coursename(avl_coursename *node, int coursename, int slot
 
 struct Node *insert(struct Node *node, int coursename, int slot)
 {
-    /* 1. Perform the normal BST rotation */
+    /* 1. Perform the normal BST rotation .Adding coursename to corresponding slot tree.*/
     if (node == NULL)
         return (newNode(coursename, slot));
 
